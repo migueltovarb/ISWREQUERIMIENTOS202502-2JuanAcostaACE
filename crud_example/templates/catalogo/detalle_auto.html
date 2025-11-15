@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ auto.marca }} {{ auto.modelo }}</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f4f4f4; }
+        .detalle { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        img { max-width: 100%; border-radius: 10px; margin-bottom: 20px; }
+        .volver { display: inline-block; margin-top: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="detalle">
+        <a href="{% url 'lista_autos' %}" class="volver">Volver al catálogo</a>
+        <h1>{{ auto.marca }} {{ auto.modelo }} ({{ auto.año }})</h1>
+        {% if auto.imagen %}
+            <img src="{{ auto.imagen.url }}" alt="{{ auto.modelo }}">
+        {% endif %}
+        <p><strong>Precio:</strong> ${{ auto.precio }}</p>
+        <p><strong>Descripción:</strong> {{ auto.descripcion|default:"Sin descripción" }}</p>
+        <p><strong>Estado:</strong> {% if auto.disponible %}Disponible{% else %}No disponible{% endif %}</p>
+    </div>
+</body>
+</html>

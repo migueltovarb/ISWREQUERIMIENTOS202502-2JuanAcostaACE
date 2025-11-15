@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Autos</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f4f4f4; }
+        .container { max-width: 1200px; margin: auto; }
+        .auto { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 15px; 
+            background: white; 
+            border-radius: 8px; 
+            width: 300px; 
+            float: left; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .auto img { max-width: 100%; height: auto; border-radius: 8px; }
+        h1 { text-align: center; color: #333; }
+        .admin-link { text-align: center; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Catálogo de Autos</h1>
+        <div class="admin-link">
+            <a href="/admin/">Panel de Administración</a>
+        </div>
+        <hr>
+        {% for auto in autos %}
+            <div class="auto">
+                {% if auto.imagen %}
+                    <img src="{{ auto.imagen.url }}" alt="{{ auto.modelo }}">
+                {% endif %}
+                <h3><a href="{% url 'detalle_auto' auto.pk %}">{{ auto.marca }} {{ auto.modelo }}</a></h3>
+                <p><strong>Año:</strong> {{ auto.año }} | <strong>Precio:</strong> ${{ auto.precio }}</p>
+            </div>
+        {% empty %}
+            <p style="text-align:center; width:100%;">No hay autos disponibles.</p>
+        {% endfor %}
+        <div style="clear:both;"></div>
+    </div>
+</body>
+</html>
